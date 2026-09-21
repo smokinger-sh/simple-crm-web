@@ -2,16 +2,12 @@ import { useState, useEffect, useContext } from "react";
 import { CustomerContext } from "../contexts/CustomerContext";
 import Spinner from "./Spinner";
 import styles from "./CustomerDetail.module.css";
-import AddInteractionForm from "../components/AddInteractionForm";
-
-
 const API_BASE = 'http://localhost:3001';
 function CustomerDetail({ selectedId }) {
   const [customer, setCustomer] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [interactions, setInteractions] = useState([]);
 
   useEffect(() => {
     if (!selectedId) return;
@@ -39,17 +35,6 @@ function CustomerDetail({ selectedId }) {
 
     fetchCustomer();
   }, [selectedId]);
-
-
-  useEffect(() => {
-  const fetchInteractions = async () => {
-    const response = await fetch(`${API_BASE}/interactions?customerId=${id}`);
-    const data = await response.json();
-    setInteractions(data);
-  };
-  fetchInteractions();
-}, [id]); // re-fetch only when the id in the URL changes
-
 
   const handleEditClick = () => setIsEditing(true);
 
