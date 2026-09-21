@@ -28,6 +28,7 @@ export function CustomerProvider({ children }) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         const response = await fetch(`${API_BASE}/customers`);
         const data = await response.json();
+        console.log("Fetched customers:", data);
         dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (err) {
         dispatch({ type: "FETCH_ERROR", payload: err.message });
